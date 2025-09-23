@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestor de Finanzas</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Librería de gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Gestor de Finanzas</h1>
+  </header>
+
+  <!-- Balance general -->
+  <section id="balance">
+    <h2>Balance Actual</h2>
+    <p id="balance-amount">$12.350</p>
+    <canvas id="pieChart"></canvas>
+  </section>
+
+  <!-- Formulario y listado de transacciones -->
+  <section id="transactions">
+    <h2>Transacciones</h2>
+    <form id="transaction-form">
+      <input type="number" id="amount" placeholder="Monto" required>
+      <select id="category">
+        <option value="alimentacion">Alimentación</option>
+        <option value="transporte">Transporte</option>
+        <option value="ocio">Ocio</option>
+      </select>
+      <input type="text" id="description" placeholder="Descripción">
+      <select id="type">
+        <option value="ingreso">Ingreso</option>
+        <option value="egreso">Egreso</option>
+      </select>
+      <button type="submit">Agregar</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Tipo</th>
+          <th>Categoría</th>
+          <th>Descripción</th>
+          <th>Monto</th>
+        </tr>
+      </thead>
+      <tbody id="transaction-list">
+        <!-- Filas dinámicas -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Historial mensual -->
+  <section id="history">
+    <h2>Historial Mensual</h2>
+    <canvas id="barChart"></canvas>
+  </section>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/charts.js"></script>
+</body>
+</html>
