@@ -1,67 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Gestor de Finanzas</title>
-  <link rel="stylesheet" href="style.css">
-  <!-- Librería de gráficos -->
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-3d"></script>
 </head>
+
 <body>
   <header>
     <h1>Gestor de Finanzas</h1>
   </header>
 
-  <!-- Balance general -->
-  <section id="balance">
-    <h2>Balance Actual</h2>
-    <p id="balance-amount">$12.350</p>
-    <canvas id="pieChart"></canvas>
-  </section>
+  <main>
+ 
+    <section id="balance" class="card">
+      <h2>Balance actual</h2>
+      <p id="balance-amount">$0,00</p>
+      <div class="charts-grid">
+        <div>
+          <h3>Ingresos</h3>
+          <canvas id="pieIngresos"></canvas>
+        </div>
+        <div>
+          <h3>Egresos</h3>
+          <canvas id="pieEgresos"></canvas>
+        </div>
+        <div>
+          <h3>Balance</h3>
+          <canvas id="pieBalance"></canvas>
+        </div>
+      </div>
+    </section>
 
-  <!-- Formulario y listado de transacciones -->
-  <section id="transactions">
-    <h2>Transacciones</h2>
-    <form id="transaction-form">
-      <input type="number" id="amount" placeholder="Monto" required>
-      <select id="category">
-        <option value="alimentacion">Alimentación</option>
-        <option value="transporte">Transporte</option>
-        <option value="ocio">Ocio</option>
-      </select>
-      <input type="text" id="description" placeholder="Descripción">
-      <select id="type">
-        <option value="ingreso">Ingreso</option>
-        <option value="egreso">Egreso</option>
-      </select>
-      <button type="submit">Agregar</button>
-    </form>
+    <section id="transactions" class="card">
+      <h2>Agregar transacción</h2>
+      <form id="transaction-form">
+        <input type="number" id="amount" placeholder="Monto" step="0.01" required />
+        <select id="type" aria-label="Tipo">
+          <option value="ingreso">Ingreso</option>
+          <option value="egreso">Egreso</option>
+        </select>
+        <select id="category" aria-label="Categoría">
+                </select>
+        <input type="text" id="description" placeholder="Descripción (opcional)" />
+        <button type="submit">Agregar</button>
+      </form>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Tipo</th>
-          <th>Categoría</th>
-          <th>Descripción</th>
-          <th>Monto</th>
-        </tr>
-      </thead>
-      <tbody id="transaction-list">
-        <!-- Filas dinámicas -->
-      </tbody>
-    </table>
-  </section>
+      <h3>Transacciones</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Tipo</th>
+            <th>Categoría</th>
+            <th>Descripción</th>
+            <th>Monto</th>
+          </tr>
+        </thead>
+        <tbody id="transaction-list"></tbody>
+      </table>
+    </section>
 
-  <!-- Historial mensual -->
-  <section id="history">
-    <h2>Historial Mensual</h2>
-    <canvas id="barChart"></canvas>
-  </section>
+    <section id="history" class="card">
+      <h2>Historial mensual (Ingresos vs Egresos)</h2>
+      <div class="chart-wrap">
+        <canvas id="barChart"></canvas>
+      </div>
+    </section>
+  </main>
 
-  <!-- Scripts -->
-  <script src="js/app.js"></script>
   <script src="js/charts.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/app.js"></script>
 </body>
+
 </html>

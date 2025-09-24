@@ -1,41 +1,90 @@
-// Pie chart: distribución de gastos del mes
-const ctxPie = document.getElementById("pieChart").getContext("2d");
-const pieChart = new Chart(ctxPie, {
+const ctxIngresos = document.getElementById("pieIngresos").getContext("2d");
+const pieIngresos = new Chart(ctxIngresos, {
   type: "pie",
   data: {
-    labels: ["Alimentación", "Transporte", "Ocio"],
+    labels: [],
     datasets: [{
-      data: [3000, 1500, 500],
-      backgroundColor: ["#4CAF50", "#2196F3", "#FF9800"]
+      data: [],
+      backgroundColor: []
     }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: "bottom" },
+      chartJsPlugin3d: {
+        enabled: true,
+        depth: 30,
+        viewDistance: 25,
+        angle: 40
+      }
+    }
   }
 });
 
-// Bar chart: ingresos vs egresos de meses anteriores
+const ctxEgresos = document.getElementById("pieEgresos").getContext("2d");
+const pieEgresos = new Chart(ctxEgresos, {
+  type: "pie",
+  data: {
+    labels: [],
+    datasets: [{
+      data: [],
+      backgroundColor: []
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: "bottom" },
+      chartJsPlugin3d: {
+        enabled: true,
+        depth: 30,
+        viewDistance: 25,
+        angle: 40
+      }
+    }
+  }
+});
+
+const ctxBalance = document.getElementById("pieBalance").getContext("2d");
+const pieBalance = new Chart(ctxBalance, {
+  type: "pie",
+  data: {
+    labels: ["Ingresos", "Egresos"],
+    datasets: [{
+      data: [0, 0],
+      backgroundColor: ["#4CAF50", "#F44336"]
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: "bottom" },
+      chartJsPlugin3d: {
+        enabled: true,
+        depth: 30,
+        viewDistance: 25,
+        angle: 40
+      }
+    }
+  }
+});
+
 const ctxBar = document.getElementById("barChart").getContext("2d");
 const barChart = new Chart(ctxBar, {
   type: "bar",
   data: {
-    labels: ["Enero", "Febrero", "Marzo"],
+    labels: [],
     datasets: [
-      {
-        label: "Ingresos",
-        data: [50000, 60000, 55000],
-        backgroundColor: "#4CAF50"
-      },
-      {
-        label: "Egresos",
-        data: [35000, 45000, 40000],
-        backgroundColor: "#F44336"
-      }
+      { label: "Ingresos", data: [], backgroundColor: "#4CAF50" },
+      { label: "Egresos", data: [], backgroundColor: "#F44336" }
     ]
   },
   options: {
     responsive: true,
-    scales: {
-      y: {
-        beginAtZero: true
-      }
+    scales: { y: { beginAtZero: true } },
+    plugins: {
+      legend: { position: "top" }
     }
   }
 });
