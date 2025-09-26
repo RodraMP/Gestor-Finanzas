@@ -5,11 +5,10 @@
 }
 
 body {
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  background-color: #4c9bcf; 
-  color: #333;
-  line-height: 1.6;
-  padding: 20px;
+  background-image: url(assets/backgroundIndex.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
 header {
@@ -18,7 +17,7 @@ header {
 }
 
 header h1 {
-  color: #0d47a1; 
+  color: #0d47a1;
   font-size: 2rem;
 }
 
@@ -30,9 +29,10 @@ header h1 {
   margin-bottom: 20px;
 }
 
-section h2, section h3 {
+section h2,
+section h3 {
   margin-bottom: 15px;
-  color: #1565c0; 
+  color: #1565c0;
 }
 
 #balance-amount {
@@ -115,19 +115,20 @@ tr.egreso td {
   margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-  form {
-    flex-direction: column;
-  }
 
-  .chart-wrap {
-    max-width: 100%;
-  }
+tr.ingreso td {
+  background-color: rgba(76, 175, 80, 0.12) !important;
+  border-left: 4px solid #4CAF50 !important;
+}
+
+tr.egreso td {
+  background-color: rgba(244, 67, 54, 0.12) !important;
+  border-left: 4px solid #F44336 !important;
 }
 
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   text-align: center;
 }
@@ -137,8 +138,12 @@ tr.egreso td {
   margin: 0 auto;
 }
 
-@media (max-width: 900px) {
-  .charts-grid {
-    grid-template-columns: 1fr;
-  }
+.metric-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.metric-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }

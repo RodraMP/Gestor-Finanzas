@@ -30,8 +30,6 @@ function actualizarCategorias() {
   });
 }
 
-renderAll();
-
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -62,6 +60,9 @@ form.addEventListener("submit", (e) => {
 
   form.reset();
   actualizarCategorias();
+  const toastEl = document.getElementById("liveToast");
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
 });
 
 function renderAll() {
@@ -147,8 +148,44 @@ function actualizarBarChart() {
   barChart.update();
 }
 
+function actualizarMetricas() {
+  if (transacciones.length === 0) return;
+
+  let totalIngresos = 0;
+  let totalEgresos = 0;
+  const categoriasEgreso = {};
+
+  transacciones.forEach(tx => {
+    if (tx.tipo === "ingreso") {
+      totalIngresos += tx.monto;
+    } else {
+      totalEgresos += tx.monto;
+      categoriasEgreso[tx.categoria] = (categoriasEgreso[tx.categoria] || 0) + tx.monto;
+    }
+  });
+  
+  const porcentajeGastado = totalIngresos > 0 ? ((totalEgresos / totalIngresos) * 100).toFixed(1) : 0;
+
+  let catMax = "-";
+  let maxGasto = 0;
+  for (let [cat, monto] of Object.entries(categoriasEgreso)) {
+    if (monto > maxGasto) {
+      maxGasto = monto;
+      catMax = cat;
+    }
+  }
+
+  const ahorro = totalIngresos - totalEgresos;
+
+  document.getElementById("metric-porcentaje").textContent = `Se gastó el ${porcentajeGastado}% de los ingresos.`;
+  document.getElementById("metric-categoria").textContent = `Categoría con más gasto: ${catMax}`;
+  document.getElementById("metric-ahorro").textContent = `Ahorro acumulado: $${ahorro.toLocaleString()}`;
+}
 
 function generarColores(n) {
   const base = ["#4CAF50", "#2196F3", "#FF9800", "#9C27B0", "#03A9F4", "#FFC107"];
   return Array.from({ length: n }, (_, i) => base[i % base.length]);
 }
+
+actualizarMetricas();
+renderAll();

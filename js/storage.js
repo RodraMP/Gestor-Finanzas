@@ -1,7 +1,5 @@
-// Clave en localStorage
 const STORAGE_KEY = "gestor_finanzas_transacciones";
 
-// Guardar
 function guardarEnStorage(transacciones) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(transacciones));
@@ -10,7 +8,6 @@ function guardarEnStorage(transacciones) {
   }
 }
 
-// Cargar
 function cargarDeStorage() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
