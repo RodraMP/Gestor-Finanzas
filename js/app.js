@@ -32,18 +32,16 @@ function actualizarCategorias() {
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-
   const monto = parseFloat(document.getElementById("amount").value);
   const descripcion = document.getElementById("description").value || "-";
   const tipo = tipoSelect.value;
   const categoria = categoriaSelect.value || "Otros";
 
   if (isNaN(monto) || monto <= 0) return;
-
   const ahora = new Date().toISOString();
-
   const transaccion = {
-    fechaISO: ahora,
+    id: Date.now(),
+    fechaISO: new Date().toISOString(),
     tipo,
     categoria,
     descripcion,
@@ -65,18 +63,19 @@ form.addEventListener("submit", (e) => {
   toast.show();
 });
 
+
 function renderAll() {
   lista.innerHTML = "";
   transacciones.forEach((tx) => agregarFila(tx));
   actualizarBalance();
   actualizarPieCharts();
   actualizarBarChart();
+  actualizarMetricas();
 }
 
-function agregarFila(tx) {
+function agregarFila(tx, index) {
   const fila = document.createElement("tr");
   fila.classList.add(tx.tipo);
-
   const fechaLegible = new Date(tx.fechaISO).toLocaleDateString();
   fila.innerHTML = `
     <td>${fechaLegible}</td>
@@ -84,9 +83,22 @@ function agregarFila(tx) {
     <td>${tx.categoria}</td>
     <td>${tx.descripcion}</td>
     <td>$${tx.monto.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-  `;
+    <td>
+      <button type="button" class="btn btn-sm btn-danger eliminar-btn">❌</button>
+    </td>
+  `; fila.querySelector(".eliminar-btn").addEventListener("click", (e) => {
+    e.preventDefault();
+    eliminarTransaccion(tx.id);
+  });
+
   lista.appendChild(fila);
 }
+
+function eliminarTransaccion(id) {
+  transacciones = transacciones.filter(tx => tx.id !== id);
+  guardarEnStorage(transacciones);
+  renderAll();
+  }
 
 function actualizarBalance() {
   let total = 0;
@@ -95,6 +107,7 @@ function actualizarBalance() {
   });
   balanceEl.textContent = `$${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }
+
 
 function actualizarPieCharts() {
   const ingresosCat = {};
@@ -163,7 +176,7 @@ function actualizarMetricas() {
       categoriasEgreso[tx.categoria] = (categoriasEgreso[tx.categoria] || 0) + tx.monto;
     }
   });
-  
+
   const porcentajeGastado = totalIngresos > 0 ? ((totalEgresos / totalIngresos) * 100).toFixed(1) : 0;
 
   let catMax = "-";

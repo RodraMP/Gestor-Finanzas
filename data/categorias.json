@@ -1,4 +1,4 @@
 {
-  "ingresos": ["Honorarios", "Ventas", "Otros"],
-  "egresos": ["Alimentación", "Transporte", "Ocio", "Servicios"]
+  "ingresos": ["Sueldo","Honorarios", "Venta", "Otros"],
+  "egresos": ["Alimentación", "Servicios", "Casa", "Transporte", "Salud e Higiene", "Ocio","Otros"]
 }
